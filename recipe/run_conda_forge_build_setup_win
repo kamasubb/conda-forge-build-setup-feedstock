@@ -6,9 +6,5 @@ conda config --set add_pip_as_python_dependency false
 conda update -n root --yes --quiet conda
 conda install -n root --yes --quiet jinja2 conda-build anaconda-client
 
-:: Workaround for Python 3.4 and x64 bug in latest conda-build.
-:: FIXME: Remove once there is a release that fixes the upstream issue
-:: ( https://github.com/conda/conda-build/issues/895 ).
-if "%TARGET_ARCH%" == "x64" if "%CONDA_PY%" == "34" conda install -n root --yes --quiet conda-build=1.20.0
 conda info
 conda config --get
