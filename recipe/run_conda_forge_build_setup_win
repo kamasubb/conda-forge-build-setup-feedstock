@@ -1,3 +1,8 @@
+
+:: 2 cores available on Appveyor workers: https://www.appveyor.com/docs/build-configuration/#build-environment
+:: CPU_COUNT is passed through conda build: https://github.com/conda/conda-build/pull/1149
+set CPU_COUNT=2
+
 set PYTHONUNBUFFERED=1
 
 conda config --set show_channel_urls true

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # 1 core available on Travis CI OS X workers: https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
-# MAKEFLAGS is passed through conda build: https://github.com/conda/conda-build/pull/917
-export MAKEFLAGS="-j1 ${MAKEFLAGS}"
+# CPU_COUNT is passed through conda build: https://github.com/conda/conda-build/pull/1149
+export CPU_COUNT=1
 
 export PYTHONUNBUFFERED=1
 
