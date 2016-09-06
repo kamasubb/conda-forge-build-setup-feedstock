@@ -1,13 +1,13 @@
 package:
   name: conda-forge-build-setup
-  version: 3.1.2
+  version: 3.2.0
 
 build:
   number: 0
   script:
     - if not exist "%LIBRARY_BIN%" mkdir "%LIBRARY_BIN%"                                                                 # [win]
     - mkdir -p "${PREFIX}/bin"                                                                                           # [unix]
-    - COPY "%RECIPE_DIR%\\run_conda_forge_build_setup_win" "%SCRIPTS%\\run_conda_forge_build_setup.bat"                  # [win]
+    - COPY "%RECIPE_DIR%\\run_conda_forge_build_setup_win.bat" "%SCRIPTS%\\run_conda_forge_build_setup.bat"              # [win]
     - cp "${RECIPE_DIR}/run_conda_forge_build_setup_osx" "${PREFIX}/bin/run_conda_forge_build_setup"                     # [osx]
     - cp "${RECIPE_DIR}/run_conda_forge_build_setup_linux" "${PREFIX}/bin/run_conda_forge_build_setup"                   # [linux]
     - COPY "%RECIPE_DIR%\\upload_or_check_non_existence.py" "%SCRIPTS%\\upload_or_check_non_existence.py"                # [win]
