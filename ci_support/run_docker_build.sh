@@ -14,6 +14,7 @@ config=$(cat <<CONDARC
 
 channels:
  - conda-forge
+
  - defaults # As we need conda-build
 
 conda-build:
@@ -38,8 +39,10 @@ echo "$config" > ~/.condarc
 # A lock sometimes occurs with incomplete builds. The lock file is stored in build_artefacts.
 conda clean --lock
 
-conda install --yes --quiet conda-forge-build-setup
-source run_conda_forge_build_setup
+conda update --yes --all
+conda install --yes conda-build
+conda install --yes conda-build=1
+conda info
 
 # Embarking on 1 case(s).
     conda build /recipe_root --quiet || exit 1
