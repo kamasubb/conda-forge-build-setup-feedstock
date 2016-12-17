@@ -6,6 +6,8 @@ export CPU_COUNT=1
 
 export PYTHONUNBUFFERED=1
 
+export MACOSX_DEPLOYMENT_TARGET="10.9"
+
 conda config --set show_channel_urls true
 conda config --set add_pip_as_python_dependency false
 
