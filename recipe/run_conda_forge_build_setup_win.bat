@@ -11,8 +11,5 @@ conda config --set add_pip_as_python_dependency false
 conda update -n root --yes --quiet conda conda-env conda-build
 conda install -n root --yes --quiet jinja2 conda-build anaconda-client
 
-:: KLUDGE to work around changes in conda-build 2.0.0
-conda install -n root --yes --quiet conda-build=1
-
 conda info
 conda config --get
