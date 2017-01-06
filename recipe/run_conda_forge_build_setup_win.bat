@@ -14,6 +14,7 @@ conda install -n root --yes --quiet jinja2 conda-build anaconda-client
 :: Needed for building extensions in python2.7 x64 with cmake.
 :: Since python version and arch is not known at this point, install it everywhere.
 conda install -n root --yes --quiet vs2008_express_vc_python_patch
+call setup_x64
 
 conda info
 conda config --get
