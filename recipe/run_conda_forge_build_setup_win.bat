@@ -16,5 +16,8 @@ conda install -n root --yes --quiet jinja2 conda-build anaconda-client
 conda install -n root --yes --quiet vs2008_express_vc_python_patch
 call setup_x64
 
+:: Set the conda-build working directory to a smaller path
+set "CONDA_BLD_PATH=C:\\bld\\"
+
 conda info
 conda config --get
