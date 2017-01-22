@@ -57,6 +57,31 @@ def circle_check_latest_pr_build(repo, pr, build_num):
         return True
 
 
+def travis_check_latest_pr_build(repo, pr, build_num):
+    # Not a PR so it is latest.
+    if pr is None:
+        return True
+
+    headers = {
+        "Accept": "application/vnd.travis-ci.2+json",
+    }
+    url = "https://api.travis-ci.org/repos/{repo}/builds?event_type=pull_request"
+
+    data = request_json(url.format(repo=repo), headers=headers)
+
+    # Parse the response to get a list of build numbers for this PR.
+    builds = data["builds"]
+    pr_builds = filter(lambda b: b["pull_request_number"] == pr, builds)
+    pr_build_nums = sorted(map(lambda b: int(b["number"]), pr_builds))
+
+    # Check if our build number is the latest (largest)
+    # out of all of the builds for this PR.
+    if build_num < max(pr_build_nums):
+        return False
+    else:
+        return True
+
+
 def main(*args):
     if not args:
         args = sys.argv[1:]
@@ -75,6 +100,7 @@ def main(*args):
         required=True,
         choices=[
             "circle",
+            "travis",
         ],
         help="Which CI to check for an outdated build",
     )
@@ -111,6 +137,8 @@ def main(*args):
     exit_code = 0
     if ci == "circle":
         exit_code = int(circle_check_latest_pr_build(repo, pr, bld) is False)
+    elif ci == "travis":
+        exit_code = int(travis_check_latest_pr_build(repo, pr, bld) is False)
 
     if verbose and exit_code == 1:
         print("Failing outdated PR build to end it.")
