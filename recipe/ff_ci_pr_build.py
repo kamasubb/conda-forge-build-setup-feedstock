@@ -1,5 +1,19 @@
 #!/usr/bin/env python
 
+"""
+Fast finish old PR builds on CIs
+
+Using various CI's (CircleCI, Travis CI, and AppVeyor) APIs and information
+about the current build for the relevant CI, this script checks to see if the
+current PR build is the most recent one. It does this by comparing the current
+PR build's build number to other build numbers of builds for this PR. If it is
+not the most recent build for the PR, then this script exits with a failure.
+Thus it can fail the build; stopping it from proceeding further. However, if
+it is the most recent build number or if it is not a PR (e.g. a build on a
+normal branch), then the build proceeds without issues.
+"""
+
+
 try:
     from future_builtins import (
         map,
@@ -112,7 +126,7 @@ def main(*args):
         args = sys.argv[1:]
 
     parser = argparse.ArgumentParser(
-        description="Determine whether this build should end."
+        description=__doc__.strip().splitlines()[0]
     )
     parser.add_argument(
         "-v",
