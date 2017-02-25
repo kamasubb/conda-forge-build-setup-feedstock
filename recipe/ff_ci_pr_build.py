@@ -61,7 +61,7 @@ def circle_check_latest_pr_build(repo, pr, build_num):
     builds = request_json(url.format(repo=repo, pr=pr), headers=headers)
 
     # Parse the response to get a list of build numbers for this PR.
-    pr_build_nums = sorted(map(lambda b: int(b["build_num"]), builds))
+    pr_build_nums = set(map(lambda b: int(b["build_num"]), builds))
 
     # Check if our build number is the latest (largest)
     # out of all of the builds for this PR.
@@ -86,7 +86,7 @@ def travis_check_latest_pr_build(repo, pr, build_num):
     # Parse the response to get a list of build numbers for this PR.
     builds = data["builds"]
     pr_builds = filter(lambda b: b["pull_request_number"] == pr, builds)
-    pr_build_nums = sorted(map(lambda b: int(b["number"]), pr_builds))
+    pr_build_nums = set(map(lambda b: int(b["number"]), pr_builds))
 
     # Check if our build number is the latest (largest)
     # out of all of the builds for this PR.
@@ -111,7 +111,7 @@ def appveyor_check_latest_pr_build(repo, pr, build_num, total_builds=50):
     # Parse the response to get a list of build numbers for this PR.
     builds = data["builds"]
     pr_builds = filter(lambda b: b.get("pullRequestId", "") == str(pr), builds)
-    pr_build_nums = sorted(map(lambda b: int(b["buildNumber"]), pr_builds))
+    pr_build_nums = set(map(lambda b: int(b["buildNumber"]), pr_builds))
 
     # Check if our build number is the latest (largest)
     # out of all of the builds for this PR.
