@@ -86,18 +86,6 @@ def distribution_exists_on_channel(binstar_cli, meta, owner, channel='main'):
     return on_channel
 
 
-def add_distribution_to_channel(binstar_cli, meta, owner, channel='main'):
-    """
-    Add a(n already existing) distribution on binstar to another channel.
-
-    Note - the addition is done based on name and version - no build strings etc.
-    so if you have a foo-0.1-np18 and foo-0.1-np19 *both* will be added to the channel.
-
-    """
-    package_fname = '{}/{}.tar.bz2'.format(conda.config.subdir, meta.dist())
-    binstar_cli.add_channel(channel, owner, meta.name(), meta.version())
-
-
 def main():
     token = os.environ.get('BINSTAR_TOKEN')
 
@@ -119,22 +107,16 @@ def main():
         return
     exists = built_distribution_already_exists(cli, meta, owner)
     if token:
-        on_channel = distribution_exists_on_channel(cli, meta, owner, channel)
         if not exists:
             upload(cli, meta, owner, channel)
             print('Uploaded {}'.format(bldpkg_path(meta)))
-        elif not on_channel:
-            print('Adding distribution {} to {}\'s {} channel'
-                  ''.format(bldpkg_path(meta), owner, channel))
-            add_distribution_to_channel(cli, meta, owner, channel)
         else:
-            print('Distribution {} already \nexists on {}\'s {} channel.'
-                  ''.format(bldpkg_path(meta), owner, channel))
+            print('Distribution {} already \nexists for {}.'
+                  ''.format(bldpkg_path(meta), owner))
     else:
         print("No BINSTAR_TOKEN present, so no upload is taking place. "
-              "The distribution just built {} already available on {}'s "
-              "{} channel.".format('is' if exists else 'is not',
-                                   owner, channel))
+              "The distribution just built {} already available for {}."
+              "".format('is' if exists else 'is not', owner))
 
 if __name__ == '__main__':
     main()
