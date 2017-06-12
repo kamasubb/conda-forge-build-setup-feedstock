@@ -6,6 +6,7 @@ set CPU_COUNT=2
 set PYTHONUNBUFFERED=1
 
 conda config --set show_channel_urls true
+conda config --set auto_update_conda false
 conda config --set add_pip_as_python_dependency false
 
 conda update -n root --yes --quiet conda conda-env conda-build
