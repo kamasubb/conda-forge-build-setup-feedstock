@@ -61,7 +61,13 @@ def circle_check_latest_pr_build(repo, pr, build_num):
     builds = request_json(url.format(repo=repo, pr=pr), headers=headers)
 
     # Parse the response to get a list of build numbers for this PR.
-    pr_build_nums = set(map(lambda b: int(b["build_num"]), builds))
+    job_name = os.environ.get("CIRCLE_JOB")
+    same_param_builds = []
+    for b in builds:
+        b_params = b.get("build_parameters") or {}
+        if b_params.get("CIRCLE_JOB") == job_name:
+            same_param_builds.append(b)
+    pr_build_nums = set(map(lambda b: int(b["build_num"]), same_param_builds))
     pr_build_nums.add(build_num)
 
     # Check if our build number is the latest (largest)
