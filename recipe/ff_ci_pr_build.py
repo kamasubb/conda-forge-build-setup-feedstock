@@ -62,10 +62,11 @@ def circle_check_latest_pr_build(repo, pr, build_num):
 
     # Parse the response to get a list of build numbers for this PR.
     job_name = os.environ.get("CIRCLE_JOB")
-    same_param_builds = list(filter(
-        lambda b: b.get("build_parameters", {}).get("CIRCLE_JOB") == job_name,
-        builds
-    ))
+    same_param_builds = []
+    for b in builds:
+        b_params = b.get("build_parameters") or {}
+        if b_params.get("CIRCLE_JOB") == job_name:
+            same_param_builds.append(b)
     pr_build_nums = set(map(lambda b: int(b["build_num"]), same_param_builds))
     pr_build_nums.add(build_num)
 
