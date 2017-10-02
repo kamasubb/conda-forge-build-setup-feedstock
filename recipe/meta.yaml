@@ -1,6 +1,6 @@
 package:
   name: conda-forge-build-setup
-  version: 4.4.8
+  version: 4.4.14
 
 build:
   number: 0
@@ -31,6 +31,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - isuruf
     - jakirkham
     - jjhelmus
     - msarahan
