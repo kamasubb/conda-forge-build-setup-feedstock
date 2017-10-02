@@ -22,7 +22,7 @@ def built_distribution_already_exists(cli, meta, owner):
     exists on the owner/user's binstar account.
 
     """
-    plat = conda.config.subdir if meta.config.platform != 'noarch' else 'noarch'
+    plat = 'noarch' if meta.noarch else conda.config.subdir
     distro_name = '{}/{}.tar.bz2'.format(plat, meta.dist())
 
     try:
