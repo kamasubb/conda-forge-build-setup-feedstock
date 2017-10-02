@@ -22,7 +22,9 @@ def built_distribution_already_exists(cli, meta, owner):
     exists on the owner/user's binstar account.
 
     """
-    distro_name = '{}/{}.tar.bz2'.format(conda.config.subdir, meta.dist())
+    plat = conda.config.subdir if meta.config.platform != 'noarch' else 'noarch'
+    distro_name = '{}/{}.tar.bz2'.format(plat, meta.dist())
+
     try:
         config = Config()
         fname = bldpkg_path(meta, config)
