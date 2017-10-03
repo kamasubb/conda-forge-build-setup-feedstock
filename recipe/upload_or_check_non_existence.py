@@ -108,7 +108,7 @@ def main():
         print("Processing {}".format(meta.name()))
         if meta.skip():
             print("No upload to take place - this configuration was skipped in build/skip.")
-            return
+            continue
         exists = built_distribution_already_exists(cli, meta, owner)
         if token:
             if not exists:
