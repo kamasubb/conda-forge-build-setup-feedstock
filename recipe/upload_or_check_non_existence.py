@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import argparse
+import contextlib
 import hashlib
 import os
 import subprocess
@@ -15,6 +16,16 @@ from conda.api import get_index
 from conda_build.metadata import MetaData
 from conda_build.build import bldpkg_path
 from conda_build.config import Config
+
+
+@contextlib.contextmanager
+def get_temp_token(token):
+    dn = tempfile.mkdtemp()
+    fn = os.path.join(dn, "binstar.token")
+    with open(fn, "w") as fh:
+        fh.write(token)
+    yield fn
+    shutil.rmtree(dn)
 
 
 def built_distribution_already_exists(cli, meta, owner):
@@ -55,10 +66,8 @@ def built_distribution_already_exists(cli, meta, owner):
 
 
 def upload(cli, meta, owner, channels):
-    with tempfile.NamedTemporaryFile(mode="w", prefix="binstar_", suffix=".token") as fh:
-        fh.write(cli.token)
-        fh.flush()
-        subprocess.check_call(['anaconda', '--quiet', '-t', fh.name,
+    with get_temp_token(cli.token) as fn:
+        subprocess.check_call(['anaconda', '--quiet', '-t', fn,
                                'upload', bldpkg_path(meta),
                                '--user={}'.format(owner),
                                '--channel={}'.format(channels)],
