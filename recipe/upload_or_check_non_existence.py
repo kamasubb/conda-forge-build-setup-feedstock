@@ -6,6 +6,7 @@ import hashlib
 import os
 import subprocess
 import sys
+import tempfile
 
 from binstar_client.utils import get_binstar
 import binstar_client.errors
@@ -54,16 +55,14 @@ def built_distribution_already_exists(cli, meta, owner):
 
 
 def upload(cli, meta, owner, channels):
-    try:
-        with open('binstar.token', 'w') as fh:
-            fh.write(cli.token)
-        subprocess.check_call(['anaconda', '--quiet', '-t', 'binstar.token',
+    with tempfile.NamedTemporaryFile(mode="w", prefix="binstar_", suffix=".token") as fh:
+        fh.write(cli.token)
+        fh.flush()
+        subprocess.check_call(['anaconda', '--quiet', '-t', fh.name,
                                'upload', bldpkg_path(meta),
                                '--user={}'.format(owner),
                                '--channel={}'.format(channels)],
                               env=os.environ)
-    finally:
-        os.remove('binstar.token')
 
 
 def distribution_exists_on_channel(binstar_cli, meta, owner, channel='main'):
