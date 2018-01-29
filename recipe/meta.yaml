@@ -22,7 +22,7 @@ requirements:
     - conda-build
     - jinja2
     - anaconda-client
-    - conda-build=2
+    - conda-build ==2
     - vs2008_express_vc_python_patch  # [win]
 
 test:
