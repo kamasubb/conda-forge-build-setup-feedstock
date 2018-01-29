@@ -17,13 +17,13 @@ build:
 
 requirements:
   run:
-    - conda  # [win]
-    - conda-env  # [win]
-    - conda-build  # [win]
-    - jinja2  # [win]
-    - anaconda-client  # [win]
-    - conda-build=2  # [win]
-    - vs2008_express_vc_python_patch  # [win]
+    - conda
+    - conda-env
+    - conda-build
+    - jinja2
+    - anaconda-client
+    - conda-build=2
+    - vs2008_express_vc_python_patch
 
 test:
   commands:
