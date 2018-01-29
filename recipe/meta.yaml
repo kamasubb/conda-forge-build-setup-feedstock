@@ -17,7 +17,9 @@ build:
 
 requirements:
   run:
-    - conda conda-env conda-build  # [win]
+    - conda  # [win]
+    - conda-env  # [win]
+    - conda-build  # [win]
     - jinja2 anaconda-client  # [win]
     - conda-build=2  # [win]
     - vs2008_express_vc_python_patch  # [win]
