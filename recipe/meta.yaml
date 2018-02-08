@@ -19,7 +19,6 @@ requirements:
   run:
     - conda
     - conda-env
-    - conda-build
     - jinja2
     - anaconda-client
     - conda-build ==2
