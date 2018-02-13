@@ -46,7 +46,6 @@ install:
     # Configure the VM.
     - cmd: conda.exe install -n root --quiet --yes conda-forge-build-setup
     # Overriding global conda-forge-build-setup with local copy.
-    - cmd: conda install -y conda-build-all
     - cmd: recipe\run_conda_forge_build_setup_win
 
 # Skip .NET project specific build phase.
