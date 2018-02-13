@@ -49,6 +49,7 @@ install:
       conda config --set show_channel_urls true
       conda install --yes --quiet conda-forge-build-setup
       # Overriding global conda-forge-build-setup with local copy.
+      conda install --yes conda-build-all
       source recipe/run_conda_forge_build_setup_osx
 
 script:
