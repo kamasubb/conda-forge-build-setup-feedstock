@@ -1,6 +1,6 @@
 package:
   name: conda-forge-build-setup
-  version: 4.4.18
+  version: 4.4.17
 
 build:
   number: 0
@@ -14,15 +14,6 @@ build:
     - cp "${RECIPE_DIR}/ff_ci_pr_build.py" "${PREFIX}/bin/ff_ci_pr_build"                                                # [unix]
     - COPY "%RECIPE_DIR%\\upload_or_check_non_existence.py" "%SCRIPTS%\\upload_or_check_non_existence.py"                # [win]
     - cp "${RECIPE_DIR}/upload_or_check_non_existence.py" "${PREFIX}/bin/upload_or_check_non_existence"                  # [unix]
-
-requirements:
-  run:
-    - conda
-    - conda-env
-    - jinja2
-    - anaconda-client
-    - conda-build 2.*
-    - vs2008_express_vc_python_patch  # [win]
 
 test:
   commands:
