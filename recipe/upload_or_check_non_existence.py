@@ -10,7 +10,7 @@ import subprocess
 import sys
 import tempfile
 
-from binstar_client.utils import get_binstar
+from binstar_client.utils import get_server_api
 import binstar_client.errors
 import conda.config
 from conda.api import get_index
@@ -111,7 +111,7 @@ def main():
     args = parser.parse_args()
     recipe_dir, owner, channel = args.recipe_dir, args.owner, args.channel
 
-    cli = get_binstar(argparse.Namespace(token=token, site=None))
+    cli = get_server_api(token=token)
     meta_main = MetaData(recipe_dir)
     for _, meta in meta_main.get_output_metadata_set(files=None):
         print("Processing {}".format(meta.name()))
