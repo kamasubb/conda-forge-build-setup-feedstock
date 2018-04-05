@@ -12,7 +12,7 @@ conda config --set show_channel_urls true
 conda config --set auto_update_conda false
 conda config --set add_pip_as_python_dependency false
 
-conda install -n root --yes --quiet conda=4.3 conda-env conda-build=2 jinja2 anaconda-client
+conda install -n root --yes --quiet conda=4.3 conda-build=2 jinja2 anaconda-client
 
 conda info
 conda config --get
