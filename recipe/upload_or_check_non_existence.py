@@ -12,8 +12,8 @@ import tempfile
 
 from binstar_client.utils import get_server_api
 import binstar_client.errors
-import conda.config
-from conda.api import get_index
+from conda_build.conda_interface import subdir as conda_subdir
+from conda_build.conda_interface import get_index
 from conda_build.metadata import MetaData
 from conda_build.build import bldpkg_path
 from conda_build.config import Config
@@ -35,7 +35,7 @@ def built_distribution_already_exists(cli, meta, owner):
     exists on the owner/user's binstar account.
 
     """
-    plat = 'noarch' if meta.noarch else conda.config.subdir
+    plat = 'noarch' if meta.noarch else conda_subdir
     distro_name = '{}/{}.tar.bz2'.format(plat, meta.dist())
 
     try:
@@ -90,7 +90,7 @@ def distribution_exists_on_channel(binstar_cli, meta, owner, channel='main'):
 
     try:
         on_channel = (distributions_on_channel[fname]['subdir'] ==
-                      conda.config.subdir)
+                      conda_subdir)
     except KeyError:
         on_channel = False
 
