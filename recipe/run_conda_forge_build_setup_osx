@@ -15,4 +15,4 @@ conda config --set add_pip_as_python_dependency false
 conda install -n root --yes --quiet conda=4.3 conda-build=2 jinja2 anaconda-client
 
 conda info
-conda config --get
+conda config --show-sources
